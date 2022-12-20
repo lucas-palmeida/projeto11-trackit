@@ -1,75 +1,65 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import ContainerPages from "../components/ContainerPages";
+import HeaderPadrao from "../components/HeaderPadrao";
+import FooterPadrao from "../components/FooterPadrao";
+import CadastraHabito from "../components/CadastraHabito";
 
 export default function HabitosPage() {
-    return (
-        <ContainerHabitos>
-            <Header>
-                TrackIt
-                <FotoUsuario src='https://i.pinimg.com/550x/f6/ae/c9/f6aec9493c2204676e25ad607a9cbce3.jpg' alt='Foto usuario' />
-            </Header>
-            <Footer>
-                <LinkFooter>Hábitos</LinkFooter>
-                <LinkFooter>Histórico</LinkFooter>
-            </Footer>
-        </ContainerHabitos>
-    )
+  return (
+    <ContainerPages>
+      <HeaderPadrao />
+      <TituloLista>
+        Meus hábitos
+        <BotaoAddHabito>+</BotaoAddHabito>
+      </TituloLista>
+      <ListaHabitos>
+        <CadastraHabito />
+        <CadastraHabito />
+
+        <CardLembrete>
+          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+          começar a trackear!
+        </CardLembrete>
+      </ListaHabitos>
+      <FooterPadrao />
+    </ContainerPages>
+  );
 }
 
-const ContainerHabitos = styled.main`
-    min-width: 360px;
-    width: 100vw;
-    min-height: 667px;
-    height: 100vh;
-    box-sizing: border-box;
-    padding-top: 70px;
-    position: relative;
-    background-color: #E5E5E5;
+const TituloLista = styled.div`
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 29px;
+  color: #126ba5;
+  padding: 22px 18px 0px 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
-const Header = styled.header`
-    width: 100%;
-    height: 70px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0px 10px 0px 18px;
-    background-color: #126BA5;
-    box-shadow: 0px 4px 4px 0px #00000026;
-    font-family: 'Playball', sans-serif;
-    font-size: 39px;
-    font-weight: 400;
-    line-height: 49px;
-    color: #FFFFFF;
+const BotaoAddHabito = styled.button`
+  width: 40px;
+  height: 35px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: #52b6ff;
+  border: none;
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 34px;
+  color: #ffffff;
+`;
+export const ListaHabitos = styled.ul`
+  width: 100%;
+  padding: 20px 18px 20px 17px;
+  background-color: #e5e5e5;
+  box-sizing: border-box;
 `;
 
-const FotoUsuario = styled.img`
-    width: 51px;
-    height: 51px;
-    border-radius: 98px;
-`;
-
-const Footer = styled.footer`
-    width: 100%;
-    height: 70px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0px 31px 0px 36px;
-    background-color: #FFFFFF;
-`;
-
-const LinkFooter = styled.p`
-    font-family: 'Lexend Deca', sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 22px;
-    color: #52B6FF;
+const CardLembrete = styled.li`
+  margin-top: 29px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #666666;
 `;

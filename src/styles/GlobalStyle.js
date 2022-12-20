@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
     article, aside, canvas, details, embed, 
     figure, figcaption, footer, header, hgroup, 
     menu, nav, output, ruby, section, summary,
-    time, mark, audio, video {
+    time, mark, audio, video, button {
         margin: 0;
         padding: 0;
         border: 0;
@@ -21,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
         font: inherit;
         vertical-align: baseline;
         text-decoration: none;
+        font-family: 'Lexend Deca', sans-serif;
     }
     article, aside, details, figcaption, figure, 
     footer, header, hgroup, menu, nav, section {
