@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import iconeCheck from "../images/whitecheck.png";
 
-export default function CartaoHabito() {
+export default function CartaoHabito({id,name, done, currentSequence, highestSequence, marcarHabito, desmarcarHabito}) {
   return (
     <CardHabito>
       <div>
-        Ler 1 capítulo de livro
+        {name}
         <p>
-          Sequência atual: 3 dias
+          Sequência atual: {currentSequence} dias
           <br />
-          Seu recorde: 5 dias
+          Seu recorde: {highestSequence} dias
         </p>
       </div>
-      <div>
+      <div className={done ? "verde" : ""} onClick={() => done ? desmarcarHabito(id) : marcarHabito(id)} >
         <img src={iconeCheck} alt="White check" />
       </div>
     </CardHabito>
@@ -46,5 +46,8 @@ const CardHabito = styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  div.verde {
+    background-color: #8FC549;
   }
 `;

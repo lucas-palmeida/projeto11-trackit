@@ -1,15 +1,22 @@
-import styled from "styled-components"
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export default function FooterPadrao() {
-    return (
-        <Footer>
-          <LinkFooter>Hábitos</LinkFooter>
-          <div>
-            <ProgressBar>Hoje</ProgressBar>
-          </div>
-          <LinkFooter>Histórico</LinkFooter>
-        </Footer>
-    )
+  return (
+    <Footer>
+      <Link to="/habitos">
+        <LinkFooter>Hábitos</LinkFooter>
+      </Link>
+      <div>
+        <Link to="/hoje">
+          <ProgressBar>Hoje</ProgressBar>
+        </Link>
+      </div>
+      <Link to="/historico">
+        <LinkFooter>Histórico</LinkFooter>
+      </Link>
+    </Footer>
+  );
 }
 
 const Footer = styled.footer`

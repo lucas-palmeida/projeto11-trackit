@@ -2,24 +2,96 @@ import styled from "styled-components";
 import ContainerPages from "../components/ContainerPages";
 import HeaderPadrao from "../components/HeaderPadrao";
 import FooterPadrao from "../components/FooterPadrao";
-import CadastraHabito from "../components/CadastraHabito";
+import CadastroHabito from "../components/CadastroHabito";
+import HabitoCadastrado from "../components/HabitoCadastrado";
+import CardLembrete from "../components/CardLembrete";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import AuthContext from "../contexts/AuthContext";
 
 export default function HabitosPage() {
+  const { token } = useContext(AuthContext);
+  const [habitos, setHabitos] = useState([]);
+  const [novo, setNovo] = useState(false);
+  const [name, setName] = useState("");
+  const [days, setDays] = useState([]);
+  const [atualiza, setAtualiza] = useState(false);
+
+  useEffect(() => {
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
+    const promise = axios.get(URL, config);
+    promise.then((res) => setHabitos(res.data));
+    promise.catch((err) => console.log(err.response.data));
+  }, [novo, atualiza]);
+
+  function criarHabito() {
+    const body = { name, days };
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const promise = axios.post(URL, body, config);
+    promise.then((res) => setAtualiza(!atualiza));
+    promise.catch((err) => console.log(err));
+    setName("");
+    setDays([]);
+    setNovo(false);
+  }
+
+  function deletarHabito(id) {
+    if (window.confirm("Deseja realmente deletar esse hábito?")) {
+      const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const promise = axios.delete(URL, config);
+      promise.then((res) => setAtualiza(!atualiza));
+      promise.catch((err) => console.log(err.response.message));
+    }
+  }
+
   return (
     <ContainerPages>
       <HeaderPadrao />
       <TituloLista>
         Meus hábitos
-        <BotaoAddHabito>+</BotaoAddHabito>
+        <BotaoAddHabito onClick={() => setNovo(true)}>+</BotaoAddHabito>
       </TituloLista>
       <ListaHabitos>
-        <CadastraHabito />
-        <CadastraHabito />
-
-        <CardLembrete>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-          começar a trackear!
-        </CardLembrete>
+        {!novo ? null : (
+          <CadastroHabito
+            setName={setName}
+            days={days}
+            setDays={setDays}
+            setNovo={setNovo}
+            criarHabito={criarHabito}
+          />
+        )}
+        {habitos.length === 0 ? (
+          <CardLembrete />
+        ) : (
+          habitos.map((h) => (
+            <HabitoCadastrado
+              key={h.id}
+              id={h.id}
+              name={h.name}
+              days={h.days}
+              deletarHabito={deletarHabito}
+            />
+          ))
+        )}
       </ListaHabitos>
       <FooterPadrao />
     </ContainerPages>
@@ -54,12 +126,4 @@ export const ListaHabitos = styled.ul`
   padding: 20px 18px 20px 17px;
   background-color: #e5e5e5;
   box-sizing: border-box;
-`;
-
-const CardLembrete = styled.li`
-  margin-top: 29px;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 22px;
-  color: #666666;
 `;

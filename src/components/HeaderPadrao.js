@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import UserContext from "../contexts/UserContext";
 
 export default function HeaderPadrao() {
+  const { user } = useContext(UserContext);
   return (
     <Header>
       TrackIt
       <FotoUsuario
-        src="https://i.pinimg.com/550x/f6/ae/c9/f6aec9493c2204676e25ad607a9cbce3.jpg"
+        src={user}
         alt="Foto usuario"
       />
     </Header>
